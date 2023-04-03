@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 
 var reference = Enumerable.Range(1, 5);
-var processes = reference.Select(index => new Process() 
+var processes = reference.Select(index => new Process()
 {
     Index = index - 1,
     Label = $"P{index}",
@@ -10,7 +10,8 @@ var processes = reference.Select(index => new Process()
 
 Console.WriteLine(JsonSerializer.Serialize(processes));
 
-Task.Factory.StartNew(async () => {
+Task.Factory.StartNew(async () =>
+{
     var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
 
     while (true)
@@ -22,7 +23,7 @@ Task.Factory.StartNew(async () => {
         foreach (var process in processes)
         {
             process.Test(processes);
-            Console.WriteLine($"Processo {process.Label}: { (process.IsFailed ? "FALHO" : JsonSerializer.Serialize(process.State)) }");
+            Console.WriteLine($"Processo {process.Label}: {(process.IsFailed ? "FALHO" : JsonSerializer.Serialize(process.State))}");
         }
     }
 }, TaskCreationOptions.LongRunning);
